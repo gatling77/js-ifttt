@@ -1,0 +1,601 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "crdsvc"
+host: "d2775739.ngrok.io"
+basePath: "//ifttt/v1"
+tags:
+- name: "Triggers"
+  description: "IFTTT Trigger Endpoints"
+- name: "Actions"
+  description: "IFTTT Action Endpoints"
+- name: "Service"
+  description: "IFTTT Service Endpoints"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+security:
+- ifttt_service_key: []
+paths:
+  /triggers/authorization_request_performed:
+    post:
+      tags:
+      - "Triggers"
+      operationId: "triggersAuthorization_request_performedPOST"
+      parameters:
+      - name: "Accept"
+        in: "header"
+        required: false
+        type: "string"
+        enum:
+        - "application/json"
+      - name: "Accept-Charset"
+        in: "header"
+        required: false
+        type: "string"
+        enum:
+        - "utf-8"
+      - name: "Accept-Encoding"
+        in: "header"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "gzip"
+          - "deflate"
+        collectionFormat: "csv"
+      - name: "X-Request-ID"
+        in: "header"
+        required: false
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Trigger request for authorization_request_performed."
+        required: true
+        schema:
+          allOf:
+          - type: "object"
+            required:
+            - "triggerFields"
+            properties:
+              triggerFields:
+                type: "object"
+                properties:
+                  card:
+                    $ref: "#/definitions/string_field"
+                required:
+                - "card"
+          - $ref: "#/definitions/base_trigger_request"
+      responses:
+        200:
+          description: "Trigger response for authorization_request_performed."
+          schema:
+            type: "object"
+            required:
+            - "data"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/inline_response_200_data"
+        400:
+          description: "There was something wrong with incoming data from IFTTT. Provide\
+            \ an error response body to clarify what went wrong."
+          schema:
+            $ref: "#/definitions/errors"
+        401:
+          description: "IFTTT sent an OAuth2 access token that isn’t valid."
+          schema:
+            $ref: "#/definitions/errors"
+        404:
+          description: "IFTTT is trying to reach a URL that doesn’t exist."
+          schema:
+            $ref: "#/definitions/errors"
+        429:
+          description: "IFTTT has sent too many requests in a given amount of time."
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "There was an error in your application logic."
+          schema:
+            $ref: "#/definitions/errors"
+        503:
+          description: "Your service is not available at the moment, but IFTTT should\
+            \ try again later."
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Triggers"
+  /triggers/authorization_request_performed/fields/card/options:
+    post:
+      tags:
+      - "Triggers"
+      operationId: "triggersAuthorization_request_performedFieldsCardOptionsPOST"
+      parameters:
+      - name: "Accept"
+        in: "header"
+        required: false
+        type: "string"
+        enum:
+        - "application/json"
+      - name: "Accept-Charset"
+        in: "header"
+        required: false
+        type: "string"
+        enum:
+        - "utf-8"
+      - name: "Accept-Encoding"
+        in: "header"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "gzip"
+          - "deflate"
+        collectionFormat: "csv"
+      - name: "X-Request-ID"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Options for the field."
+          schema:
+            type: "object"
+            required:
+            - "data"
+            properties:
+              data:
+                type: "array"
+                items:
+                  $ref: "#/definitions/inline_response_200_1_data"
+        400:
+          description: "There was something wrong with incoming data from IFTTT. Provide\
+            \ an error response body to clarify what went wrong."
+          schema:
+            $ref: "#/definitions/errors"
+        401:
+          description: "IFTTT sent an OAuth2 access token that isn’t valid."
+          schema:
+            $ref: "#/definitions/errors"
+        404:
+          description: "IFTTT is trying to reach a URL that doesn’t exist."
+          schema:
+            $ref: "#/definitions/errors"
+        429:
+          description: "IFTTT has sent too many requests in a given amount of time."
+          schema:
+            $ref: "#/definitions/errors"
+        500:
+          description: "There was an error in your application logic."
+          schema:
+            $ref: "#/definitions/errors"
+        503:
+          description: "Your service is not available at the moment, but IFTTT should\
+            \ try again later."
+          schema:
+            $ref: "#/definitions/errors"
+      x-swagger-router-controller: "Triggers"
+  /status:
+    get:
+      tags:
+      - "Service"
+      operationId: "statusGET"
+      parameters:
+      - name: "Accept"
+        in: "header"
+        required: false
+        type: "string"
+        enum:
+        - "application/json"
+      - name: "Accept-Charset"
+        in: "header"
+        required: false
+        type: "string"
+        enum:
+        - "utf-8"
+      - name: "Accept-Encoding"
+        in: "header"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "gzip"
+          - "deflate"
+        collectionFormat: "csv"
+      - name: "X-Request-ID"
+        in: "header"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+        503:
+          description: "Your service is not available at the moment, but IFTTT should\
+            \ try again later."
+          schema:
+            $ref: "#/definitions/errors"
+      security:
+      - ifttt_service_key: []
+      x-swagger-router-controller: "Service"
+securityDefinitions:
+  ifttt_service_key:
+    type: "apiKey"
+    name: "IFTTT-Service-Key"
+    in: "header"
+definitions:
+  base_trigger_request:
+    type: "object"
+    required:
+    - "trigger_identity"
+    properties:
+      trigger_identity:
+        type: "string"
+        description: "A unique identifier for this set of trigger fields for a given\
+          \ Applet."
+      limit:
+        type: "integer"
+        format: "int32"
+        description: "Maximum number of items to be returned, default 50."
+        minimum: 0
+        default: 50
+      user:
+        $ref: "#/definitions/user"
+      ifttt_source:
+        $ref: "#/definitions/ifttt_source"
+  base_action_request:
+    type: "object"
+    properties:
+      user:
+        $ref: "#/definitions/user"
+      ifttt_source:
+        $ref: "#/definitions/ifttt_source"
+  user:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      timezone:
+        type: "string"
+    description: "Information about the IFTTT user related to this request."
+  ifttt_source:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      url:
+        type: "string"
+    description: "Information about the personal Applet on IFTTT that triggered this\
+      \ request."
+  meta:
+    type: "object"
+    required:
+    - "id"
+    - "timestamp"
+    properties:
+      id:
+        type: "string"
+        description: "A unique identifier for the item."
+      timestamp:
+        type: "integer"
+        description: "A Unix timestamp in seconds."
+    description: "Trigger Meta data."
+    example:
+      id: "id"
+      timestamp: 0
+  option:
+    type: "object"
+    required:
+    - "label"
+    - "value"
+    properties:
+      label:
+        type: "string"
+        description: "A user-facing label."
+      value:
+        type: "string"
+        description: "The actual field value."
+    description: "Dynamic option"
+    example:
+      label: "label"
+      value: "value"
+  dynamic_validation:
+    type: "object"
+    required:
+    - "valid"
+    properties:
+      valid:
+        type: "boolean"
+      message:
+        type: "string"
+        description: "A user-facing message for an invalid field."
+    description: "Field Dynamic validation."
+  string_field:
+    type: "string"
+    description: "String Field"
+  datetime_field:
+    type: "string"
+    format: "date-time"
+    description: "Datetime Field"
+  date_field:
+    type: "string"
+    format: "date"
+    description: "Datetime Field"
+  location_field:
+    type: "object"
+    required:
+    - "lat"
+    - "lng"
+    properties:
+      lat:
+        type: "number"
+        format: "double"
+      lng:
+        type: "number"
+        format: "double"
+      radius:
+        type: "number"
+        format: "double"
+    description: "Location Field"
+  errors:
+    type: "object"
+    required:
+    - "errors"
+    properties:
+      errors:
+        type: "array"
+        items:
+          $ref: "#/definitions/errors_errors"
+        minItems: 1
+    description: "Errors"
+  action_errors:
+    type: "object"
+    required:
+    - "errors"
+    properties:
+      errors:
+        type: "array"
+        items:
+          $ref: "#/definitions/action_errors_errors"
+        minItems: 1
+    description: "Action Errors"
+  inline_response_200_data:
+    required:
+    - "meta"
+    properties:
+      created_at:
+        $ref: "#/definitions/datetime_field"
+      card:
+        $ref: "#/definitions/string_field"
+      amount:
+        $ref: "#/definitions/string_field"
+      currency:
+        $ref: "#/definitions/string_field"
+      meta:
+        $ref: "#/definitions/meta"
+    example:
+      meta:
+        id: "id"
+        timestamp: 0
+      created_at: {}
+      card: {}
+  inline_response_200:
+    required:
+    - "data"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_data"
+    example:
+      data:
+      - meta:
+          id: "id"
+          timestamp: 0
+        created_at: {}
+        card: {}
+      - meta:
+          id: "id"
+          timestamp: 0
+        created_at: {}
+        card: {}
+  inline_response_200_1_data:
+    required:
+    - "label"
+    properties:
+      label:
+        type: "string"
+      value:
+        type: "string"
+      values:
+        type: "array"
+        items:
+          $ref: "#/definitions/option"
+    description: "Swagger 2.0 does not support oneOf. Please use (label, value) or\
+      \ (label, values)."
+    example:
+      values:
+      - label: "label"
+        value: "value"
+      - label: "label"
+        value: "value"
+      label: "label"
+      value: "value"
+  inline_response_200_1:
+    required:
+    - "data"
+    properties:
+      data:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_1_data"
+    example:
+      data:
+      - values:
+        - label: "label"
+          value: "value"
+        - label: "label"
+          value: "value"
+        label: "label"
+        value: "value"
+      - values:
+        - label: "label"
+          value: "value"
+        - label: "label"
+          value: "value"
+        label: "label"
+        value: "value"
+  errors_errors:
+    required:
+    - "message"
+    properties:
+      message:
+        type: "string"
+  action_errors_errors:
+    required:
+    - "message"
+    properties:
+      status:
+        type: "string"
+        description: "Skip the action from retrying."
+        enum:
+        - "SKIP"
+      message:
+        type: "string"
+parameters:
+  trigger_request_authorization_request_performed:
+    in: "body"
+    name: "body"
+    description: "Trigger request for authorization_request_performed."
+    required: true
+    schema:
+      allOf:
+      - type: "object"
+        required:
+        - "triggerFields"
+        properties:
+          triggerFields:
+            type: "object"
+            properties:
+              card:
+                $ref: "#/definitions/string_field"
+            required:
+            - "card"
+      - $ref: "#/definitions/base_trigger_request"
+  accept:
+    name: "Accept"
+    in: "header"
+    required: false
+    type: "string"
+    enum:
+    - "application/json"
+  accept_charset:
+    name: "Accept-Charset"
+    in: "header"
+    required: false
+    type: "string"
+    enum:
+    - "utf-8"
+  accept_encoding:
+    name: "Accept-Encoding"
+    in: "header"
+    required: false
+    type: "array"
+    items:
+      type: "string"
+      enum:
+      - "gzip"
+      - "deflate"
+    collectionFormat: "csv"
+  x_request_id:
+    name: "X-Request-ID"
+    in: "header"
+    required: false
+    type: "string"
+responses:
+  action_bad_request:
+    description: "There was something wrong with incoming data from IFTTT. Provide\
+      \ an error response body to clarify what went wrong."
+    schema:
+      $ref: "#/definitions/action_errors"
+  action_response:
+    description: "The action response."
+    schema:
+      type: "object"
+      required:
+      - "data"
+      properties:
+        data:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              id:
+                type: "string"
+              url:
+                type: "string"
+            required:
+            - "id"
+  bad_request:
+    description: "There was something wrong with incoming data from IFTTT. Provide\
+      \ an error response body to clarify what went wrong."
+    schema:
+      $ref: "#/definitions/errors"
+  internal_server_error:
+    description: "There was an error in your application logic."
+    schema:
+      $ref: "#/definitions/errors"
+  not_found:
+    description: "IFTTT is trying to reach a URL that doesn’t exist."
+    schema:
+      $ref: "#/definitions/errors"
+  populator_response:
+    description: "Options for the field."
+    schema:
+      type: "object"
+      required:
+      - "data"
+      properties:
+        data:
+          type: "array"
+          items:
+            $ref: "#/definitions/inline_response_200_1_data"
+  service_unavailable:
+    description: "Your service is not available at the moment, but IFTTT should try\
+      \ again later."
+    schema:
+      $ref: "#/definitions/errors"
+  too_many_requests:
+    description: "IFTTT has sent too many requests in a given amount of time."
+    schema:
+      $ref: "#/definitions/errors"
+  trigger_response_authorization_request_performed:
+    description: "Trigger response for authorization_request_performed."
+    schema:
+      type: "object"
+      required:
+      - "data"
+      properties:
+        data:
+          type: "array"
+          items:
+            $ref: "#/definitions/inline_response_200_data"
+  unauthorized:
+    description: "IFTTT sent an OAuth2 access token that isn’t valid."
+    schema:
+      $ref: "#/definitions/errors"
+  validator_response:
+    description: "The field was validated."
+    schema:
+      type: "object"
+      required:
+      - "data"
+      properties:
+        data:
+          $ref: "#/definitions/dynamic_validation"
